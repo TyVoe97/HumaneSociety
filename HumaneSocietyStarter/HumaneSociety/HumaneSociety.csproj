@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\OneDrive\Desktop\School\Portfolio-1\Dev Code camp\HumaneSociety.cs" />
+    <Compile Include="Admin.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="HumaneSociety.designer.cs">
       <AutoGen>True</AutoGen>

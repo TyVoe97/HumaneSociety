@@ -365,15 +365,15 @@ namespace HumaneSociety
             {
                 case "small":
                     client.HomeSquareFootage= 1;
-                    Query.updateClient(client);
+                    Query.UpdateClient(client);
                     break;
                 case "medium":
                     client.HomeSquareFootage = 2;
-                    Query.updateClient(client);
+                    Query.UpdateClient(client);
                     break;
                 case "large":
                     client.HomeSquareFootage = 3;
-                    Query.updateClient(client);
+                    Query.UpdateClient(client);
                     break;
                 default:
                     UserInterface.DisplayUserOptions("Incorrect Input type please enter small, medium, or large");
