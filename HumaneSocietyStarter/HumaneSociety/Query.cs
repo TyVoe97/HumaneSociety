@@ -9,8 +9,35 @@ namespace HumaneSociety
     public static class Query
     {
         public static HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+<<<<<<< HEAD
       
         public static Client GetClient(string userName, string password)
+=======
+
+        public static Client GetClient(string userName, string password)
+        {
+            var Requireddata = (from x in db.Clients
+                                where x.UserName == userName && x.Password == password
+                                select x).Single();
+            return Requireddata;
+        }
+          //database.SubmitChanges();  
+        //GetUserAdoptionStatus
+        //GetAnimalByID
+        //Adopt
+        // SearchForAnimalByMultipleTraits
+        //RetrieveClients
+        //GetStates
+        // AddNewClient
+        //updateClient
+        // UpdateUsername
+        //UpdateEmail
+        //UpdateAddress
+        //UpdateFirstName
+        //UpdateLastName
+
+        public static void UpdateClient(Client client)
+>>>>>>> 86f79be168bdcea371a30196425aaab898b8b737
         {
             var Requireddata = (from x in db.Clients
                                 where x.UserName == userName && x.Password == password
@@ -95,11 +122,17 @@ namespace HumaneSociety
 
         public static Employee EmployeeLogin(string userName, string password)
         {
+<<<<<<< HEAD
             var user = (from u in db.Employees
+=======
+
+             var user = (from u in db.Employees
+>>>>>>> 86f79be168bdcea371a30196425aaab898b8b737
                         where u.UserName.Equals(userName) &&
                         u.Password.Equals(password)
                         select u).Single();
             return user;
+<<<<<<< HEAD
         }
 
         internal static object GetUserAdoptionStatus(Client client)
@@ -135,6 +168,8 @@ namespace HumaneSociety
         internal static void Adopt(object animal, Client client)
         {
             throw new NotImplementedException();
+=======
+>>>>>>> 86f79be168bdcea371a30196425aaab898b8b737
         }
     }
 }
