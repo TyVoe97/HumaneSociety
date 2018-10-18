@@ -8,12 +8,11 @@ namespace HumaneSociety
 {
     public static class Query
     {
-      public static  HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
+        public static HumaneSocietyDataContext db = new HumaneSocietyDataContext();
 
         public static Client GetClient(string userName, string password)
         {
-            var Requireddata = (from x in database.Clients
+            var Requireddata = (from x in db.Clients
                                 where x.UserName == userName && x.Password == password
                                 select x).Single();
             return Requireddata;
@@ -111,10 +110,12 @@ namespace HumaneSociety
 
         public static Employee EmployeeLogin(string userName, string password)
         {
-            var user = (from u in db.Employees
-                        where u.EmployeeId.Equals(userName) &&
+
+             var user = (from u in db.Employees
+                        where u.UserName.Equals(userName) &&
                         u.Password.Equals(password)
-                        select u);
+                        select u).Single();
+            return user;
         }
     }
 }
