@@ -9,8 +9,6 @@ namespace HumaneSociety
     public static class Query
     {
         public static HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-
-
         public static Client GetClient(string userName, string password)
         {
             var Requireddata = (from x in db.Clients
@@ -124,7 +122,9 @@ namespace HumaneSociety
 
         public static Employee EmployeeLogin(string userName, string password)
         {
-            var user = (from u in db.Employees
+
+
+             var user = (from u in db.Employees
                         where u.UserName.Equals(userName) &&
                         u.Password.Equals(password)
                         select u).Single();
