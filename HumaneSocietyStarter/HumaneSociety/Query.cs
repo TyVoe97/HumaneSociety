@@ -116,9 +116,12 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        public static void UpdateAdoption(bool v, Adoption adoption)
+        public static Adoption UpdateAdoption(int adoption)
         {
-            throw new NotImplementedException();
+            var updateAdopt = (from u in db.Adoptions
+                               where u.AdoptionId == adoption
+                               select u).Single();
+            return updateAdopt;
         }
 
         public static object GetPendingAdoptions()
@@ -127,6 +130,11 @@ namespace HumaneSociety
         }
 
         public static object CheckEmployeeUserNameExist()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static Room GetRoom(int animalId)
         {
             throw new NotImplementedException();
         }
@@ -168,30 +176,11 @@ namespace HumaneSociety
         }
 
 
-     
-
-
-        internal static void updateClient(Client client)
-        {
-            throw new NotImplementedException();
-        }
-
-
         internal static object GetStates()
         {
             throw new NotImplementedException();
         }
-
-
-
-        internal static object GetAnimalByID(int iD)
-        {
-            throw new NotImplementedException();
-        }
-
-        
-
-    }
+   
         internal static void Adopt(object animal, Client client)
         {
             throw new NotImplementedException();
