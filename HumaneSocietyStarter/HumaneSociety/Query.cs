@@ -32,11 +32,21 @@ namespace HumaneSociety
                                 select r).First();
             return Requireddata;
         }
-        public static Adopt()
+        public static void Adopt(Animal animal, Client client)
+        {
+            Adoption newAdd = new Adoption();
+            newAdd.Client = client;
+            newAdd.Animal = animal;
+            newAdd.ApprovalStatus = "Pending";
+            newAdd.AdoptionFee = 100;
+            db.Adoptions.InsertOnSubmit(newAdd);
+            db.SubmitChanges();
+        }
+
         // SearchForAnimalByMultipleTraits
         //RetrieveClients
         //GetStates
-        // AddNewClient
+        // AddNewClientgit 
         //updateClient
         // UpdateUsername
         //UpdateEmail
@@ -78,9 +88,10 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        public static object RetrieveClients()
+        public static object RetrieveClients(string userName, string email)
         {
-            throw new NotImplementedException();
+            var retrievedClients = (from r in db.Clients
+                                   where r.Email == 
         }
 
         public static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
@@ -134,6 +145,7 @@ namespace HumaneSociety
             return user;
         }
 
+
         internal static object GetUserAdoptionStatus(Client client)
         {
             throw new NotImplementedException();
@@ -146,6 +158,7 @@ namespace HumaneSociety
 
      
 
+
         internal static void updateClient(Client client)
         {
             throw new NotImplementedException();
@@ -156,8 +169,14 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
+
+        internal static object GetAnimalByID(int iD)
+        {
+            throw new NotImplementedException();
+        }
+
         
-        
+
     }
     
 }
