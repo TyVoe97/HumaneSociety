@@ -88,7 +88,10 @@ namespace HumaneSociety
 
         public static Employee EmployeeLogin(string userName, string password)
         {
-            throw new NotImplementedException();
+            var user = (from u in db.Employees
+                        where u.EmployeeId.Equals(userName) &&
+                        u.Password.Equals(password)
+                        select u);
         }
     }
 }

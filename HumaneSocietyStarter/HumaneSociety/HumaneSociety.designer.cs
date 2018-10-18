@@ -143,7 +143,7 @@ namespace HumaneSociety
 			}
 		}
 		
-		public System.Data.Linq.Table<Employee> Employees
+		public System.Data.Linq.Table<Employee> User
 		{
 			get
 			{
