@@ -8,19 +8,25 @@ namespace HumaneSociety
 {
     public static class Query
     {
-      public static  HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+      public static  HumaneSocietyDataContext db = new HumaneSocietyDataContext();
 
 
         public static Client GetClient(string userName, string password)
         {
-            var Requireddata = (from x in database.Clients
+            var Requireddata = (from x in db.Clients
                                 where x.UserName == userName && x.Password == password
                                 select x).Single();
             return Requireddata;
         }
-          //database.SubmitChanges();  
-        //GetUserAdoptionStatus
-        //GetAnimalByID
+
+        
+         
+        //database.SubmitChanges();  
+        public static Adoption GetUserAdoptionStatus()
+        {
+
+        }
+        
         //Adopt
         // SearchForAnimalByMultipleTraits
         //RetrieveClients
@@ -109,9 +115,14 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        public static Employee EmployeeLogin(string userName, string password)
-        {
-            throw new NotImplementedException();
-        }
+       
+            public static Employee EmployeeLogin(string userName, string password)
+            {
+            var user = (from u in db.Employees
+                        where u.UserName.Equals(userName) &&
+                        u.Password.Equals(password)
+                        select u).Single();
+            return user;
+            }
     }
 }
