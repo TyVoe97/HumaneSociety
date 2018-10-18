@@ -493,7 +493,7 @@ namespace HumaneSociety
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnClientIdChanging(value);
+					this.OnClientIdChanging(value);  
 					this.SendPropertyChanging();
 					this._ClientId = value;
 					this.SendPropertyChanged("ClientId");

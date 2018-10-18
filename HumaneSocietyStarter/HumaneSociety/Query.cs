@@ -32,11 +32,21 @@ namespace HumaneSociety
                                 select r).First();
             return Requireddata;
         }
-        //Adopt
+        public static void Adopt(Animal animal, Client client)
+        {
+            Adoption newAdd = new Adoption();
+            newAdd.Client = client;
+            newAdd.Animal = animal;
+            newAdd.ApprovalStatus = "Pending";
+            newAdd.AdoptionFee = 100;
+            db.Adoptions.InsertOnSubmit(newAdd);
+            db.SubmitChanges();
+        }
+
         // SearchForAnimalByMultipleTraits
         //RetrieveClients
         //GetStates
-        // AddNewClient
+        // AddNewClientgit 
         //updateClient
         // UpdateUsername
         //UpdateEmail
@@ -46,10 +56,7 @@ namespace HumaneSociety
 
         public static Client UpdateClient(string userName, string password)
         {
-            var Requireddata = (from x in db.Clients
-                                where x.UserName == userName && x.Password == password
-                                select x).Single();
-            return Requireddata;
+           
         }
 
 
@@ -149,6 +156,7 @@ namespace HumaneSociety
                         select u).Single();
             return user;
         }
+
         internal static object GetUserAdoptionStatus(Client client)
         {
             throw new NotImplementedException();
@@ -159,11 +167,31 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
+
+     
+
+
+        internal static void updateClient(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+
         internal static object GetStates()
         {
             throw new NotImplementedException();
         }
 
+
+
+        internal static object GetAnimalByID(int iD)
+        {
+            throw new NotImplementedException();
+        }
+
+        
+
+    }
         internal static void Adopt(object animal, Client client)
         {
             throw new NotImplementedException();
