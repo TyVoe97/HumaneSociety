@@ -9,10 +9,6 @@ namespace HumaneSociety
     public static class Query
     {
         public static HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-<<<<<<< HEAD
-      
-        public static Client GetClient(string userName, string password)
-=======
 
         public static Client GetClient(string userName, string password)
         {
@@ -21,9 +17,21 @@ namespace HumaneSociety
                                 select x).Single();
             return Requireddata;
         }
-          //database.SubmitChanges();  
-        //GetUserAdoptionStatus
-        //GetAnimalByID
+
+
+
+        //database.SubmitChanges();  
+        //public static Adoption GetUserAdoptionStatus()Emplee
+        //{
+
+        //}
+        public static Animal GetAnimalByID(int iD)
+        {
+            var Requireddata = (from r in db.Animals
+                                where r.AnimalId == iD
+                                select r).First();
+            return Requireddata;
+        }
         //Adopt
         // SearchForAnimalByMultipleTraits
         //RetrieveClients
@@ -37,7 +45,6 @@ namespace HumaneSociety
         //UpdateLastName
 
         public static void UpdateClient(Client client)
->>>>>>> 86f79be168bdcea371a30196425aaab898b8b737
         {
             var Requireddata = (from x in db.Clients
                                 where x.UserName == userName && x.Password == password
@@ -120,19 +127,14 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
+
         public static Employee EmployeeLogin(string userName, string password)
         {
-<<<<<<< HEAD
             var user = (from u in db.Employees
-=======
-
-             var user = (from u in db.Employees
->>>>>>> 86f79be168bdcea371a30196425aaab898b8b737
                         where u.UserName.Equals(userName) &&
                         u.Password.Equals(password)
                         select u).Single();
             return user;
-<<<<<<< HEAD
         }
 
         internal static object GetUserAdoptionStatus(Client client)
@@ -168,8 +170,7 @@ namespace HumaneSociety
         internal static void Adopt(object animal, Client client)
         {
             throw new NotImplementedException();
-=======
->>>>>>> 86f79be168bdcea371a30196425aaab898b8b737
         }
     }
+    
 }
