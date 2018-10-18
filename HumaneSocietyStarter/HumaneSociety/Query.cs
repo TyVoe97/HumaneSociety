@@ -54,7 +54,7 @@ namespace HumaneSociety
         //UpdateFirstName
         //UpdateLastName
 
-        public static void UpdateClient(Client client)
+        public static Client UpdateClient(string userName, string password)
         {
            
         }
@@ -75,23 +75,33 @@ namespace HumaneSociety
 
         public static void UpdateAddress(Client client)
         {
-           
+
         }
 
-        public static void UpdateFirstName(Client client)
+        public static Client UpdateFirstName(string firstname)
         {
-            throw new NotImplementedException();
+            var clientFirstName = (from f in db.Clients
+                                   where f.FirstName == firstname
+                                   select f).Single();
+            return clientFirstName;
         }
 
-        public static void UpdateLastName(Client client)
+        public static void UpdateLastName(string lastname)
         {
-            throw new NotImplementedException();
+
+            var clientLastName = (from f in db.Clients
+                                  where f.FirstName == lastname
+                                  select f).Single();
         }
+
+
 
         public static object RetrieveClients(string userName, string email)
         {
-            var retrievedClients = (from r in db.Clients
-                                   where r.Email == 
+            throw new NotImplementedException();
+            // still working on a way to make this work, feel free to work on it also
+            // var retrievedClients = (from r in db.Clients
+            // where r.Email == 
         }
 
         public static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
@@ -145,7 +155,6 @@ namespace HumaneSociety
             return user;
         }
 
-
         internal static object GetUserAdoptionStatus(Client client)
         {
             throw new NotImplementedException();
@@ -156,6 +165,7 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
+
      
 
 
@@ -164,10 +174,12 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
+
         internal static object GetStates()
         {
             throw new NotImplementedException();
         }
+
 
 
         internal static object GetAnimalByID(int iD)
@@ -178,5 +190,16 @@ namespace HumaneSociety
         
 
     }
+        internal static void Adopt(object animal, Client client)
+        {
+            throw new NotImplementedException();
+        }
     
+    }
+
 }
+
+
+    
+
+
