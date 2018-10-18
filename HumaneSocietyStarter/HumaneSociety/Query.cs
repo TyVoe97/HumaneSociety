@@ -62,9 +62,10 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        public static object RetrieveClients()
+        public static object RetrieveClients(string userName, string email)
         {
-            throw new NotImplementedException();
+            var retrievedClients = (from r in db.Clients
+                                   where r.Email == 
         }
 
         public static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
@@ -117,5 +118,17 @@ namespace HumaneSociety
                         select u).Single();
             return user;
         }
+
+        internal static void updateClient(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static object GetStates()
+        {
+            throw new NotImplementedException();
+        }
+
+        
     }
 }
