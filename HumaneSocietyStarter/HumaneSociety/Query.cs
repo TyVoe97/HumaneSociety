@@ -68,32 +68,32 @@ namespace HumaneSociety
 
         public static void UpdateAddress(Client client)
         {
-           
+
         }
 
         public static Client UpdateFirstName(string firstname)
         {
             var clientFirstName = (from f in db.Clients
-                                    where f.FirstName == firstname
-                                    select f).Single();
+                                   where f.FirstName == firstname
+                                   select f).Single();
             return clientFirstName;
         }
 
         public static void UpdateLastName(string lastname)
         {
-        
+
             var clientLastName = (from f in db.Clients
-                                    where f.FirstName == lastname
-                                    select f).Single();
+                                  where f.FirstName == lastname
+                                  select f).Single();
         }
 
-        }
+
 
         public static object RetrieveClients(string userName, string email)
-        {   
+        {
             // still working on a way to make this work, feel free to work on it also
-           // var retrievedClients = (from r in db.Clients
-                                  // where r.Email == 
+            // var retrievedClients = (from r in db.Clients
+            // where r.Email == 
         }
 
         public static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
@@ -165,7 +165,12 @@ namespace HumaneSociety
         {
             throw new NotImplementedException();
         }
-
-    }
     
+    }
+
 }
+
+
+    
+
+
