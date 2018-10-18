@@ -44,7 +44,7 @@ namespace HumaneSociety
         //UpdateFirstName
         //UpdateLastName
 
-        public static void UpdateClient(Client client)
+        public static Client UpdateClient(string userName, string password)
         {
             var Requireddata = (from x in db.Clients
                                 where x.UserName == userName && x.Password == password
@@ -71,20 +71,29 @@ namespace HumaneSociety
            
         }
 
-        public static void UpdateFirstName(Client client)
+        public static Client UpdateFirstName(string firstname)
         {
-            throw new NotImplementedException();
+            var clientFirstName = (from f in db.Clients
+                                    where f.FirstName == firstname
+                                    select f).Single();
+            return clientFirstName;
         }
 
-        public static void UpdateLastName(Client client)
+        public static void UpdateLastName(string lastname)
         {
-            throw new NotImplementedException();
+        
+            var clientLastName = (from f in db.Clients
+                                    where f.FirstName == lastname
+                                    select f).Single();
+        }
+
         }
 
         public static object RetrieveClients(string userName, string email)
-        {
-            var retrievedClients = (from r in db.Clients
-                                   where r.Email == 
+        {   
+            // still working on a way to make this work, feel free to work on it also
+           // var retrievedClients = (from r in db.Clients
+                                  // where r.Email == 
         }
 
         public static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
@@ -137,9 +146,6 @@ namespace HumaneSociety
                         select u).Single();
             return user;
         }
-
-<<<<<<< HEAD
-=======
         internal static object GetUserAdoptionStatus(Client client)
         {
             throw new NotImplementedException();
@@ -150,26 +156,7 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static void UpdateClient(Client client)
-        {
-            throw new NotImplementedException();
-        }
-
->>>>>>> 938571feeb47fcb0dc53f31c7c6c0c5205c4dfad
-        internal static void updateClient(Client client)
-        {
-            throw new NotImplementedException();
-        }
-
         internal static object GetStates()
-        {
-            throw new NotImplementedException();
-        }
-
-<<<<<<< HEAD
-        
-=======
-        internal static object GetAnimalByID(int iD)
         {
             throw new NotImplementedException();
         }
@@ -178,7 +165,7 @@ namespace HumaneSociety
         {
             throw new NotImplementedException();
         }
->>>>>>> 938571feeb47fcb0dc53f31c7c6c0c5205c4dfad
+
     }
     
 }
