@@ -53,9 +53,12 @@ namespace HumaneSociety
         }
 
 
-        public static void UpdateUsername(Client client)
+        public static Client UpdateUsername(string username)
         {
-            throw new NotImplementedException();
+            var newU = (from n in db.Clients
+                        where n.UserName == username
+                        select n).Single();
+            return newU;
         }
 
         public static Client UpdateEmail(string email)
@@ -66,8 +69,9 @@ namespace HumaneSociety
             return clientEmails;
         }
 
-        public static void UpdateAddress(Client client)
+        public static void UpdateAddress(string addresses)
         {
+            throw new NotImplementedException();
 
         }
 
@@ -86,8 +90,6 @@ namespace HumaneSociety
                                   where f.FirstName == lastname
                                   select f).Single();
         }
-
-
 
         public static object RetrieveClients(string userName, string email)
         {
