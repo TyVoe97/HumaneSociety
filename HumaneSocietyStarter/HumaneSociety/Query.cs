@@ -91,6 +91,7 @@ namespace HumaneSociety
 
         public static object RetrieveClients(string userName, string email)
         {
+            throw new NotImplementedException();
             // still working on a way to make this work, feel free to work on it also
             // var retrievedClients = (from r in db.Clients
             // where r.Email == 
