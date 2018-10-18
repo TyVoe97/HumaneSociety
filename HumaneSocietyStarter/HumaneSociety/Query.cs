@@ -32,7 +32,7 @@ namespace HumaneSociety
                                 select r).First();
             return Requireddata;
         }
-        //Adopt
+        public static Adopt()
         // SearchForAnimalByMultipleTraits
         //RetrieveClients
         //GetStates
@@ -46,10 +46,7 @@ namespace HumaneSociety
 
         public static void UpdateClient(Client client)
         {
-            var Requireddata = (from x in db.Clients
-                                where x.UserName == userName && x.Password == password
-                                select x).Single();
-            return Requireddata;
+           
         }
 
 
@@ -147,10 +144,7 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static void UpdateClient(Client client)
-        {
-            throw new NotImplementedException();
-        }
+     
 
         internal static void updateClient(Client client)
         {
@@ -162,15 +156,8 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static object GetAnimalByID(int iD)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal static void Adopt(object animal, Client client)
-        {
-            throw new NotImplementedException();
-        }
+        
+        
     }
     
 }
