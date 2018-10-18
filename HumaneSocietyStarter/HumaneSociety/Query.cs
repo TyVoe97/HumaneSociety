@@ -9,6 +9,7 @@ namespace HumaneSociety
     public static class Query
     {
         public static HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+
         public static Client GetClient(string userName, string password)
         {
             var Requireddata = (from x in db.Clients
@@ -45,22 +46,29 @@ namespace HumaneSociety
 
         public static void UpdateClient(Client client)
         {
-            throw new NotImplementedException();
+            var Requireddata = (from x in db.Clients
+                                where x.UserName == userName && x.Password == password
+                                select x).Single();
+            return Requireddata;
         }
+
 
         public static void UpdateUsername(Client client)
         {
             throw new NotImplementedException();
         }
 
-        public static void UpdateEmail(Client client)
+        public static Client UpdateEmail(string email)
         {
-            throw new NotImplementedException();
+            var clientEmails = (from i in db.Clients
+                                where i.Email == email
+                                select i).Single();
+            return clientEmails;
         }
 
         public static void UpdateAddress(Client client)
         {
-            throw new NotImplementedException();
+           
         }
 
         public static void UpdateFirstName(Client client)
@@ -123,15 +131,31 @@ namespace HumaneSociety
 
         public static Employee EmployeeLogin(string userName, string password)
         {
-
-
-             var user = (from u in db.Employees
+            var user = (from u in db.Employees
                         where u.UserName.Equals(userName) &&
                         u.Password.Equals(password)
                         select u).Single();
             return user;
         }
 
+<<<<<<< HEAD
+=======
+        internal static object GetUserAdoptionStatus(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void RunEmployeeQueries(Employee employee, string v)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void UpdateClient(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+>>>>>>> 938571feeb47fcb0dc53f31c7c6c0c5205c4dfad
         internal static void updateClient(Client client)
         {
             throw new NotImplementedException();
@@ -142,7 +166,19 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
+<<<<<<< HEAD
         
+=======
+        internal static object GetAnimalByID(int iD)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void Adopt(object animal, Client client)
+        {
+            throw new NotImplementedException();
+        }
+>>>>>>> 938571feeb47fcb0dc53f31c7c6c0c5205c4dfad
     }
     
 }
