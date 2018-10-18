@@ -21,10 +21,14 @@ namespace HumaneSociety
 
 
         //database.SubmitChanges();  
-        //public static Adoption GetUserAdoptionStatus()Emplee
-        //{
+        public static IQueryable<Adoption> GetUserAdoptionStatus(Client client)
+       {
+            var Requireddata = from x in db.Adoptions
+                               where x.ClientId == client.ClientId && x.ApprovalStatus == "Pending"
+                               select x;
 
-        //}
+            return Requireddata;
+        }
         public static Animal GetAnimalByID(int iD)
         {
             var Requireddata = (from r in db.Animals
@@ -155,10 +159,7 @@ namespace HumaneSociety
             return user;
         }
 
-        internal static object GetUserAdoptionStatus(Client client)
-        {
-            throw new NotImplementedException();
-        }
+      
 
         internal static void RunEmployeeQueries(Employee employee, string v)
         {
