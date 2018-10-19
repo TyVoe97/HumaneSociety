@@ -133,7 +133,7 @@ namespace HumaneSociety
         }
 
 
-        public static Adoption UpdateAdoption(Adoption adoption)
+        public static Adoption UpdateAdoption(bool v,Adoption adoption)
         {
             var updateAdopt = (from u in db.Adoptions
                                where u.AdoptionId == adoption.AdoptionId
@@ -142,6 +142,19 @@ namespace HumaneSociety
                           where a.AnimalId == adoption.AnimalId
                           select a).Single();
             return updateAdopt;
+
+            if (v   )
+            {
+                updateAdopt.ApprovalStatus = "Approved";
+
+                animal.AdoptionStatus = "Adopted";
+            }
+            else v;
+            {
+                updateAdopt.ApprovalStatus = "Pending";
+
+                animal.AdoptionStatus = "Pending"; 
+            }
 
         }
 
@@ -189,7 +202,7 @@ namespace HumaneSociety
             DietPlan diet = new DietPlan();
             Console.WriteLine("How much food would you like?");
             Console.WriteLine("What type of food would you like?");
-            Console.WriteLine("What is the name of the food you want?");
+            Console.WriteLine("What is the name of the food ygit git ou want?");
             db.DietPlans.InsertOnSubmit(diet);
             db.SubmitChanges();
             var dietPlan = (from d in db.DietPlans
