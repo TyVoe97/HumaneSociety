@@ -157,7 +157,7 @@ namespace HumaneSociety
             throw new NotImplementedException();
 
         }
-        public static Species GetSpecies(string speciesName)
+        public static Species GetSpecies()
         {
             var requiredanimal = (from i in db.Species
                           where i.Name == speciesName
@@ -204,7 +204,7 @@ namespace HumaneSociety
 
         internal static void RunEmployeeQueries(Employee employee, string v)
         {
-            throw new NotImplementedException();
+            
         }
     
     }
