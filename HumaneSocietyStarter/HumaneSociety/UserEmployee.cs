@@ -86,7 +86,7 @@ namespace HumaneSociety
             UserInterface.DisplayUserOptions("Would you approve this adoption?");
             if ((bool)UserInterface.GetBitData())
             {
-                Query.UpdateAdoption(true, adoption);
+                Query.UpdateAdbboption(true, adoption);
             }
             else
             {
@@ -243,7 +243,7 @@ namespace HumaneSociety
         {
             Console.Clear();
             Animal animal = new Animal();
-            animal.Species = Query.GetSpecies();
+            animal.Species = Query.GetSpecies(userInput);
             animal.Name = UserInterface.GetStringData("name", "the animal's");
             animal.Age = UserInterface.GetIntegerData("age", "the animal's");
             animal.Demeanor = UserInterface.GetStringData("demeanor", "the animal's");
