@@ -31,10 +31,32 @@ namespace HumaneSociety
             return Requireddata;
         }
 
-        public static Client UpdateClient(string userName, string password)
+        public static void UpdateClient(Client client)
         {
-            throw new NotImplementedException();
+            var requiredData =
+                 (from x in db.Clients
+                  where x.ClientId == client.ClientId
+                  select x).First();
+            if(client.Income != null)
+            {
+                requiredData.Income = client.Income;
+            }
+            if(client.Password !=null)
+            {
+                requiredData.Password = client.Password;
+            }
+            if(client.NumberOfKids !=null)
+            {
+                requiredData.NumberOfKids = client.NumberOfKids;
+            }
+            if(client.HomeSquareFootage !=null)
+            {
+                requiredData.HomeSquareFootage = client.HomeSquareFootage;
+            }
 
+
+
+           
         }
 
 
@@ -91,43 +113,50 @@ namespace HumaneSociety
 
         public static object SearchForAnimalByMultipleTraits()
         {
-            throw new NotImplementedException();
+          
         }
 
-<<<<<<< HEAD
 
-        public static Adoption UpdateAdoption(bool v,Adoption adoption)
-=======
-        public static Adoption UpdateAdoption(int adoption)
->>>>>>> 39737bfa6aaf469b5b7ef9e63b8b5f950c03703c
+
+        public static void UpdateAdoption(bool adopt,Adoption adoption)
         {
             var updateAdopt = (from u in db.Adoptions
-                               where u.AdoptionId == adoption
+                               where u.AdoptionId == adoption.AdoptionId
                                select u).Single();
-            return updateAdopt;
-<<<<<<< HEAD
+            var animal = (from a in db.Animals
+                          where a.AnimalId == adoption.AnimalId
+                          select a).Single();
+          
 
-            if (v   )
+            if (adopt)
             {
                 updateAdopt.ApprovalStatus = "Approved";
 
                 animal.AdoptionStatus = "Adopted";
             }
-            else v;
+            else 
             {
                 updateAdopt.ApprovalStatus = "Pending";
 
-                animal.AdoptionStatus = "Pending"; 
+                animal.AdoptionStatus = "Pending";
             }
 
-=======
->>>>>>> 39737bfa6aaf469b5b7ef9e63b8b5f950c03703c
+
         }
 
-        public static object GetPendingAdoptions()
+    
+
+        public static IQueryable<Adoption> GetPendingAdoptions()
         {
-            throw new NotImplementedException();
+            var requireddata = from g in db.Adoptions
+                               where g.ApprovalStatus == "Pending"
+                               select g;
+            return requireddata;
         }
+        
+
+
+       
 
         public static object CheckEmployeeUserNameExist(string username)
         {
@@ -152,25 +181,8 @@ namespace HumaneSociety
             throw new NotImplementedException();
 
         }
-        public static Adoption UpdateAdoption(bool v, Adoption adoption)
-        {
-            var updateAdopt = (from u in db.Adoptions
-                               where u.AdoptionId == adoption.AdoptionId
-                               select u).Single();
-            var animal = (from a in db.Animals
-                          where a.AnimalId == adoption.AnimalId
-                          select a).Single();
-            return updateAdopt;
-
-        }
-
-        public static IQueryable<Adoption> GetPendingAdoptions(bool v)
-        {
-            var requireddata = from g in db.Adoptions
-                               where g.ApprovalStatus == "Pending"
-                               select g;
-            return requireddata;
-        }
+        
+     
         public static Species GetSpecies()
         {
             var requiredanimal = (from i in db.Species
@@ -180,11 +192,11 @@ namespace HumaneSociety
 
         }
 
-        private static USState GetState(string state)
+        private static IQueryable< USState> GetState(string state)
         {
             var RequiredStates = (from i in db.USStates
                                   where i.Name == state
-                                  select i).Single();
+                                  select i);
             return RequiredStates;
         }
        public static void Adopt(Animal animal, Client client)
@@ -208,16 +220,8 @@ namespace HumaneSociety
         public static int GetDietPlan()
         {
             //prompt user for food amount, name, and type of food
-<<<<<<< HEAD
-            DietPlan diet = new DietPlan();
-            Console.WriteLine("How much food would you like?");
-            Console.WriteLine("What type of food would you like?");
-            Console.WriteLine("What is the name of the food ygit git ou want?");
-            db.DietPlans.InsertOnSubmit(diet);
-            db.SubmitChanges();
-            var dietPlan = (from d in db.DietPlans
-                            where d.)
-=======
+
+
             //DietPlan diet = new DietPlan();
             //Console.WriteLine("How much food would you like?");
             //Console.WriteLine("What type of food would you like?");
@@ -229,7 +233,7 @@ namespace HumaneSociety
                             where d.Name == dietPlanName
                             select d.DietPlanId).FirstOrDefault();
             return dietPlanId;
->>>>>>> 39737bfa6aaf469b5b7ef9e63b8b5f950c03703c
+
 
             // TODO
             // if dietPlanId is 0, make new diet plan, save to DB, return new id
