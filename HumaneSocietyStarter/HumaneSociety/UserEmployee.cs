@@ -247,10 +247,10 @@ namespace HumaneSociety
             animal.Name = UserInterface.GetStringData("name", "the animal's");
             animal.Age = UserInterface.GetIntegerData("age", "the animal's");
             animal.Demeanor = UserInterface.GetStringData("demeanor", "the animal's");
-            animal.KidFriendly = UserInterface.GetBitData("the animal", "child friendly");
+            animal.KidFriendly = UserInterface.GetBitData("the animal", "child friendly"); 
             animal.PetFriendly = UserInterface.GetBitData("the animal", "pet friendly");
             animal.Weight = UserInterface.GetIntegerData("the animal", "the weight of the");
-            animal.DietPlan= Query.GetDietPlan();
+            animal.DietPlanId = Query.GetDietPlan();
             Query.AddAnimal(animal);
         }
         protected override void LogInPreExistingUser()

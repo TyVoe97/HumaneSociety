@@ -62,13 +62,17 @@ namespace HumaneSociety
 
         public static Client UpdateClient(string userName, string password)
         {
-           
+            throw new NotImplementedException();
+
         }
 
 
-        public static void UpdateUsername(Client client)
+        public static Client UpdateUsername(string username)
         {
-            throw new NotImplementedException();
+            var newU = (from n in db.Clients
+                        where n.UserName == username
+                        select n).Single();
+            return newU;
         }
 
         public static Client UpdateEmail(string email)
@@ -79,8 +83,9 @@ namespace HumaneSociety
             return clientEmails;
         }
 
-        public static void UpdateAddress(Client client)
+        public static void UpdateAddress(string addresses)
         {
+            throw new NotImplementedException();
 
         }
 
@@ -99,8 +104,6 @@ namespace HumaneSociety
                                   where f.LastName == lastname
                                   select f).Single();
         }
-
-
 
         public static object RetrieveClients(string userName, string email)
         {
@@ -125,9 +128,12 @@ namespace HumaneSociety
             var updateAdopt = (from u in db.Adoptions
                                where u.AdoptionId == adoption
                                select u).Single();
+
             var animal = (from a in db.Animals
                           where a.AdoptionStatus == "Adopted"
                           select a).Single();
+
+
             return updateAdopt;
         }
 
@@ -136,7 +142,12 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        public static object CheckEmployeeUserNameExist()
+        public static object CheckEmployeeUserNameExist(string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static Room GetRoom(int animalId)
         {
             throw new NotImplementedException();
         }
@@ -146,19 +157,40 @@ namespace HumaneSociety
             throw new NotImplementedException();
 
         }
-
-        public static DietPlan GetDietPlan()
-        {
-            throw new NotImplementedException();
-        }
-
         public static Species GetSpecies(string speciesName)
         {
             var requiredanimal = (from i in db.Species
                           where i.Name == speciesName
                           select i).Single();
             return requiredanimal;
+
         }
+        private static USState GetState(string state)
+        {
+            var RequiredStates = (from i in db.USStates
+                                  where i.Name == state
+                                  select i).Single();
+            return RequiredStates;
+        }
+      
+        
+        public static int GetDietPlan()
+        {
+            //prompt user for food amount, name, and type of food
+            DietPlan diet = new DietPlan();
+            Console.WriteLine("How much food would you like?");
+            Console.WriteLine("What type of food would you like?");
+            Console.WriteLine("What is the name of the food you want?");
+            db.DietPlans.InsertOnSubmit(diet);
+            db.SubmitChanges();
+            var dietPlan = (from d in db.DietPlans
+                            where d.)
+
+        }
+
+
+       
+        
 
 
         public static Employee EmployeeLogin(string userName, string password)
@@ -170,45 +202,7 @@ namespace HumaneSociety
             return user;
         }
 
-        internal static object GetUserAdoptionStatus(Client client)
-        {
-            throw new NotImplementedException();
-        }
-
         internal static void RunEmployeeQueries(Employee employee, string v)
-        {
-            throw new NotImplementedException();
-        }
-
-
-     
-
-
-        internal static void updateClient(Client client)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        private static IQueryable<USState> GetState(string state)
-        {
-            var RequiredStates = (from i in db.USStates
-                                  where i.Name == state
-                                  select i);
-            return RequiredStates;
-        }
-
-
-
-        internal static object GetAnimalByID(int iD)
-        {
-            throw new NotImplementedException();
-        }
-
-        
-
-    }
-        internal static void Adopt(object animal, Client client)
         {
             throw new NotImplementedException();
         }
