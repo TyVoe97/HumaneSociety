@@ -18,17 +18,16 @@ namespace HumaneSociety
             return Requireddata;
         }
 
-
-
-        //database.SubmitChanges();  
         public static IQueryable<Adoption> GetUserAdoptionStatus(Client client)
-       {
+        {
             var Requireddata = from x in db.Adoptions
                                where x.ClientId == client.ClientId && x.ApprovalStatus == "Pending"
                                select x;
-
             return Requireddata;
         }
+
+        //database.SubmitChanges();  
+
         public static Animal GetAnimalByID(int iD)
         {
             var Requireddata = (from r in db.Animals
@@ -49,7 +48,7 @@ namespace HumaneSociety
 
         // SearchForAnimalByMultipleTraits
         //RetrieveClients
-     
+
         public static IQueryable<USState> GetState(string states)
         {
             var RequiredStates = (from i in db.USStates
@@ -59,22 +58,30 @@ namespace HumaneSociety
         }
         // AddNewClientgit 
         //updateClient
-       
-       // get pending aboption
+
+        // get pending aboption
         //UpdateAddress
-       
+
         //UpdateLastName
 
         public static Client UpdateClient(string userName, string password)
         {
 
-           
+
+
+
+            throw new NotImplementedException();
+
+
         }
 
 
-        public static void UpdateUsername(Client client)
+        public static Client UpdateUsername(string username)
         {
-            throw new NotImplementedException();
+            var newU = (from n in db.Clients
+                        where n.UserName == username
+                        select n).Single();
+            return newU;
         }
 
         public static Client UpdateEmail(string email)
@@ -85,8 +92,9 @@ namespace HumaneSociety
             return clientEmails;
         }
 
-        public static void UpdateAddress(Client client)
+        public static void UpdateAddress(string addresses)
         {
+            throw new NotImplementedException();
 
         }
 
@@ -106,8 +114,6 @@ namespace HumaneSociety
                                   select f).Single();
         }
 
-
-
         public static object RetrieveClients(string userName, string email)
         {
             throw new NotImplementedException();
@@ -126,7 +132,8 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        public static Adoption UpdateAdoption( Adoption adoption)
+
+        public static Adoption UpdateAdoption(Adoption adoption)
         {
             var updateAdopt = (from u in db.Adoptions
                                where u.AdoptionId == adoption.AdoptionId
@@ -138,15 +145,21 @@ namespace HumaneSociety
 
         }
 
-        public static IQueryable<Adoption>  GetPendingAdoptions()
+
+        public static IQueryable<Adoption> GetPendingAdoptions()
         {
             var requireddata = from g in db.Adoptions
-                                where g.ApprovalStatus == "Pending"
-                                select g;
+                               where g.ApprovalStatus == "Pending"
+                               select g;
             return requireddata;
         }
 
-        public static object CheckEmployeeUserNameExist()
+        public static object CheckEmployeeUserNameExist(string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static Room GetRoom(int animalId)
         {
             throw new NotImplementedException();
         }
@@ -156,16 +169,41 @@ namespace HumaneSociety
             throw new NotImplementedException();
 
         }
-
-        public static DietPlan GetDietPlan()
+        public static Species GetSpecies(string speciesName)
         {
-            throw new NotImplementedException();
+            var requiredanimal = (from i in db.Species
+                                  where i.Name == speciesName
+                                  select i).Single();
+            return requiredanimal;
+
+
+
+
         }
 
-        public static Species GetSpecies()
+
+
+        public static int GetDietPlan()
         {
-            throw new NotImplementedException();
+            //prompt user for food amount, name, and type of food
+            DietPlan diet = new DietPlan();
+            Console.WriteLine("How much food would you like?");
+            Console.WriteLine("What type of food would you like?");
+            Console.WriteLine("What is the name of the food you want?");
+            db.DietPlans.InsertOnSubmit(diet);
+            db.SubmitChanges();
+            var dietPlan = (from d in db.DietPlans
+                            where d.)
+
+
         }
+
+
+
+
+
+
+
 
 
         public static Employee EmployeeLogin(string userName, string password)
@@ -177,28 +215,12 @@ namespace HumaneSociety
             return user;
         }
 
-      
-
         internal static void RunEmployeeQueries(Employee employee, string v)
         {
             throw new NotImplementedException();
         }
 
-
-     
-
-
-       
-
-       
-
-       
-        
-
     }
-       
-    
-    
 
 }
 
