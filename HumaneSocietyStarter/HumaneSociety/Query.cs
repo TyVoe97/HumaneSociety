@@ -214,16 +214,6 @@ namespace HumaneSociety
         public static int GetDietPlan()
         {
             //prompt user for food amount, name, and type of food
-<<<<<<< HEAD
-            DietPlan diet = new DietPlan();
-            Console.WriteLine("How much food would you like?");
-            Console.WriteLine("What type of food would you like?");
-            Console.WriteLine("What is the name of the food ygit git ou want?");
-            db.DietPlans.InsertOnSubmit(diet);
-            db.SubmitChanges();
-            var dietPlan = (from d in db.DietPlans
-                            where d.)
-=======
             //DietPlan diet = new DietPlan();
             //Console.WriteLine("How much food would you like?");
             //Console.WriteLine("What type of food would you like?");
@@ -235,7 +225,7 @@ namespace HumaneSociety
                             where d.Name == dietPlanName
                             select d.DietPlanId).FirstOrDefault();
             return dietPlanId;
->>>>>>> 39737bfa6aaf469b5b7ef9e63b8b5f950c03703c
+
 
             // TODO
             // if dietPlanId is 0, make new diet plan, save to DB, return new id
