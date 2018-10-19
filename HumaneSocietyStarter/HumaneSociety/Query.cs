@@ -130,7 +130,7 @@ namespace HumaneSociety
             throw new NotImplementedException();
 
         }
-        public static Adoption UpdateAdoption(bool v, Adoption adoption)
+        public static Adoption UpdateAdoption(bool adopt, Adoption adoption)
         {
             var updateAdopt = (from u in db.Adoptions
                                where u.AdoptionId == adoption.AdoptionId
@@ -183,6 +183,12 @@ namespace HumaneSociety
                                select x;
             return Requireddata;
         }
+
+        internal static void UpdateShot(string v, Animal animal)
+        {
+            throw new NotImplementedException();
+        }
+
         public static int GetDietPlan()
         {
             //prompt user for food amount, name, and type of food
@@ -204,8 +210,10 @@ namespace HumaneSociety
 
         }
 
-    
-
+        internal static void EnterUpdate(Animal animal, Dictionary<int, string> updates)
+        {
+            throw new NotImplementedException();
+        }
 
         public static Employee EmployeeLogin(string userName, string password)
         {
@@ -220,7 +228,21 @@ namespace HumaneSociety
         {
             
         }
-    
+
+        internal static void RemoveAnimal(object animal)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void AddAnimal(Animal animal)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
