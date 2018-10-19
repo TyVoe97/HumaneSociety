@@ -94,40 +94,37 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-<<<<<<< HEAD
 
-        public static Adoption UpdateAdoption(bool v,Adoption adoption)
-=======
-        public static Adoption UpdateAdoption(int adoption)
->>>>>>> 39737bfa6aaf469b5b7ef9e63b8b5f950c03703c
+
+        public static Adoption UpdateAdoption(bool adopt,Adoption adoption)
+
         {
             var updateAdopt = (from u in db.Adoptions
-                               where u.AdoptionId == adoption
+                               where u.AdoptionId == adoption.AdoptionId
                                select u).Single();
-            return updateAdopt;
-<<<<<<< HEAD
+            var animal = (from a in db.Animals
+                          where a.AnimalId == adoption.AnimalId
+                          select a).Single();
+            
 
-            if (v   )
+
+            if (adopt)
             {
                 updateAdopt.ApprovalStatus = "Approved";
 
                 animal.AdoptionStatus = "Adopted";
             }
-            else v;
+            else 
             {
                 updateAdopt.ApprovalStatus = "Pending";
 
                 animal.AdoptionStatus = "Pending"; 
             }
+            return updateAdopt;
 
-=======
->>>>>>> 39737bfa6aaf469b5b7ef9e63b8b5f950c03703c
         }
 
-        public static object GetPendingAdoptions()
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public static object CheckEmployeeUserNameExist(string username)
         {
@@ -152,26 +149,16 @@ namespace HumaneSociety
             throw new NotImplementedException();
 
         }
-        public static Adoption UpdateAdoption(bool adopt, Adoption adoption)
-        {
-            var updateAdopt = (from u in db.Adoptions
-                               where u.AdoptionId == adoption.AdoptionId
-                               select u).Single();
-            var animal = (from a in db.Animals
-                          where a.AnimalId == adoption.AnimalId
-                          select a).Single();
-            return updateAdopt;
+      
 
-        }
-
-        public static IQueryable<Adoption> GetPendingAdoptions(bool v)
+        public static IQueryable<Adoption> GetPendingAdoptions()
         {
             var requireddata = from g in db.Adoptions
                                where g.ApprovalStatus == "Pending"
                                select g;
             return requireddata;
         }
-        public static Species GetSpecies()
+        public static Species GetSpecies(string speciesName)
         {
             var requiredanimal = (from i in db.Species
                           where i.Name == speciesName
@@ -180,11 +167,11 @@ namespace HumaneSociety
 
         }
 
-        private static USState GetState(string state)
+        private static IQueryable<USState> GetState(string state)
         {
             var RequiredStates = (from i in db.USStates
                                   where i.Name == state
-                                  select i).Single();
+                                  select i);
             return RequiredStates;
         }
        public static void Adopt(Animal animal, Client client)
@@ -198,6 +185,12 @@ namespace HumaneSociety
             db.SubmitChanges();
             
         }
+
+        internal static object GetShots(Animal animal)
+        {
+            throw new NotImplementedException();
+        }
+
         public static IQueryable<Adoption> GetUserAdoptionStatus(Client client)
         {
             var Requireddata = from x in db.Adoptions
@@ -259,7 +252,9 @@ namespace HumaneSociety
 
         internal static void AddAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals.InsertOnSubmit(animal);
+            db.SubmitChanges();
+            
         }
 
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
@@ -272,5 +267,3 @@ namespace HumaneSociety
 
 
     
-
-

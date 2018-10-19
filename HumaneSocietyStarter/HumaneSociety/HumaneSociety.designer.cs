@@ -675,7 +675,7 @@ namespace HumaneSociety
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Animals")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="db.Animals")]
 	public partial class Animal : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
