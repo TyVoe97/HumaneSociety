@@ -56,7 +56,8 @@ namespace HumaneSociety
 
         public static Client UpdateClient(string userName, string password)
         {
-           
+            throw new NotImplementedException();
+
         }
 
 
@@ -94,7 +95,7 @@ namespace HumaneSociety
         {
 
             var clientLastName = (from f in db.Clients
-                                  where f.FirstName == lastname
+                                  where f.LastName == lastname
                                   select f).Single();
         }
 
@@ -129,7 +130,7 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        public static object CheckEmployeeUserNameExist()
+        public static object CheckEmployeeUserNameExist(string username)
         {
             throw new NotImplementedException();
         }
@@ -144,10 +145,42 @@ namespace HumaneSociety
             throw new NotImplementedException();
 
         }
-
-        public static DietPlan GetDietPlan()
+        private static USState GetState(string state)
         {
-            throw new NotImplementedException();
+            var RequiredStates = (from i in db.USStates
+                                  where i.Name == state
+                                  select i).Single();
+            return RequiredStates;
+        }
+       public static void Adopt(Animal animal, Client client)
+        {
+            Adoption newAdd = new Adoption();
+            newAdd.Client = client;
+            newAdd.Animal = animal;
+            newAdd.ApprovalStatus = "Pending";
+            newAdd.AdoptionFee = 100;
+            db.Adoptions.InsertOnSubmit(newAdd);
+            db.SubmitChanges();
+        }
+        public static IQueryable<Adoption> GetUserAdoptionStatus(Client client)
+        {
+            var Requireddata = from x in db.Adoptions
+                               where x.ClientId == client.ClientId && x.ApprovalStatus == "Pending"
+                               select x;
+            return Requireddata;
+        }
+        public static int GetDietPlan()
+        {
+            //prompt user for food amount, name, and type of food
+            DietPlan diet = new DietPlan();
+            Console.WriteLine("How much food would you like?");
+            Console.WriteLine("What type of food would you like?");
+            Console.WriteLine("What is the name of the food you want?");
+            db.DietPlans.InsertOnSubmit(diet);
+            db.SubmitChanges();
+            var dietPlan = (from d in db.DietPlans
+                            where d.)
+
         }
 
         public static Species GetSpecies()
@@ -165,23 +198,7 @@ namespace HumaneSociety
             return user;
         }
 
-        internal static object GetUserAdoptionStatus(Client client)
-        {
-            throw new NotImplementedException();
-        }
-
         internal static void RunEmployeeQueries(Employee employee, string v)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        internal static object GetStates()
-        {
-            throw new NotImplementedException();
-        }
-   
-        internal static void Adopt(object animal, Client client)
         {
             throw new NotImplementedException();
         }
