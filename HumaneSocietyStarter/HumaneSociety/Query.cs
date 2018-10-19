@@ -49,17 +49,25 @@ namespace HumaneSociety
 
         // SearchForAnimalByMultipleTraits
         //RetrieveClients
-        //GetStates
+     
+        public static IQueryable<USState> GetState(string states)
+        {
+            var RequiredStates = (from i in db.USStates
+                                  where i.Name == states
+                                  select i);
+            return RequiredStates;
+        }
         // AddNewClientgit 
         //updateClient
-        // UpdateUsername
-        //UpdateEmail
+       
+       // get pending aboption
         //UpdateAddress
-        //UpdateFirstName
+       
         //UpdateLastName
 
         public static Client UpdateClient(string userName, string password)
         {
+
            
         }
 
@@ -94,7 +102,7 @@ namespace HumaneSociety
         {
 
             var clientLastName = (from f in db.Clients
-                                  where f.FirstName == lastname
+                                  where f.LastName == lastname
                                   select f).Single();
         }
 
@@ -118,14 +126,24 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        public static void UpdateAdoption(bool v, Adoption adoption)
+        public static Adoption UpdateAdoption( Adoption adoption)
         {
-            throw new NotImplementedException();
+            var updateAdopt = (from u in db.Adoptions
+                               where u.AdoptionId == adoption.AdoptionId
+                               select u).Single();
+            var animal = (from a in db.Animals
+                          where a.AnimalId == adoption.AnimalId
+                          select a).Single();
+            return updateAdopt;
+
         }
 
-        public static object GetPendingAdoptions()
+        public static IQueryable<Adoption>  GetPendingAdoptions()
         {
-            throw new NotImplementedException();
+            var requireddata = from g in db.Adoptions
+                                where g.ApprovalStatus == "Pending"
+                                select g;
+            return requireddata;
         }
 
         public static object CheckEmployeeUserNameExist()
@@ -170,33 +188,17 @@ namespace HumaneSociety
      
 
 
-        internal static void updateClient(Client client)
-        {
-            throw new NotImplementedException();
-        }
+       
 
+       
 
-        internal static object GetStates()
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-        internal static object GetAnimalByID(int iD)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         
 
     }
-        internal static void Adopt(object animal, Client client)
-        {
-            throw new NotImplementedException();
-        }
+       
     
-    }
+    
 
 }
 
