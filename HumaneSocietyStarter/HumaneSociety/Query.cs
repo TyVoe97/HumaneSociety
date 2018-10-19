@@ -18,7 +18,13 @@ namespace HumaneSociety
             return Requireddata;
         }
 
-
+        public static IQueryable<Adoption> GetUserAdoptionStatus(Client client)
+        {
+            var Requireddata = from x in db.Adoptions
+                               where x.ClientId == client.ClientId && x.ApprovalStatus == "Pending"
+                               select x;
+            return Requireddata;
+        }
 
         //database.SubmitChanges();  
         //public static Adoption GetUserAdoptionStatus()Emplee
@@ -90,7 +96,7 @@ namespace HumaneSociety
         {
 
             var clientLastName = (from f in db.Clients
-                                  where f.FirstName == lastname
+                                  where f.LastName == lastname
                                   select f).Single();
         }
 
@@ -114,9 +120,15 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        public static void UpdateAdoption(bool v, Adoption adoption)
+        public static Adoption UpdateAdoption(int adoption)
         {
-            throw new NotImplementedException();
+            var updateAdopt = (from u in db.Adoptions
+                               where u.AdoptionId == adoption
+                               select u).Single();
+            var animal = (from a in db.Animals
+                          where a.AdoptionStatus == "Adopted"
+                          select a).Single();
+            return updateAdopt;
         }
 
         public static object GetPendingAdoptions()
@@ -142,7 +154,8 @@ namespace HumaneSociety
 
         public static Species GetSpecies()
         {
-            throw new NotImplementedException();
+           var animal = (from i in db.Animals
+                         )
         }
 
 
@@ -175,9 +188,12 @@ namespace HumaneSociety
         }
 
 
-        internal static object GetStates()
+        private static IQueryable<USState> GetState(string state)
         {
-            throw new NotImplementedException();
+            var RequiredStates = (from i in db.USStates
+                                  where i.Name == state
+                                  select i);
+            return RequiredStates;
         }
 
 
