@@ -152,10 +152,12 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        public static Species GetSpecies()
+        public static Species GetSpecies(string speciesName)
         {
-           var animal = (from i in db.Animals
-                         )
+            var requiredanimal = (from i in db.Species
+                          where i.Name == speciesName
+                          select i).Single();
+            return requiredanimal;
         }
 
 
