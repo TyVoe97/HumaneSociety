@@ -114,7 +114,7 @@ namespace HumaneSociety
 
         public static Room GetRoom(int animalId, string rooms)
         {
-            var room =(from r in db.Rooms
+            var room = (from r in db.Rooms
                        where r.AnimalId == animalId
                        select r).FirstOrDefault();
 
