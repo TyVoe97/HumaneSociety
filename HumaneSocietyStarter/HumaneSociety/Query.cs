@@ -130,6 +130,17 @@ namespace HumaneSociety
             throw new NotImplementedException();
 
         }
+<<<<<<< HEAD
+        public static Species GetSpecies()
+        {
+            var requiredanimal = (from i in db.Species
+                          where i.Name == speciesName
+                          select i).Single();
+            return requiredanimal;
+
+        }
+=======
+>>>>>>> b08c84eed94a7e40dffb9900410aacc9264c91de
         private static USState GetState(string state)
         {
             var RequiredStates = (from i in db.USStates
@@ -193,7 +204,7 @@ namespace HumaneSociety
 
         internal static void RunEmployeeQueries(Employee employee, string v)
         {
-            throw new NotImplementedException();
+            
         }
     
     }
