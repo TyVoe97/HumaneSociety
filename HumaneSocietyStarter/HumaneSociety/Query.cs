@@ -130,7 +130,25 @@ namespace HumaneSociety
             throw new NotImplementedException();
 
         }
-<<<<<<< HEAD
+        public static Adoption UpdateAdoption(bool v, Adoption adoption)
+        {
+            var updateAdopt = (from u in db.Adoptions
+                               where u.AdoptionId == adoption.AdoptionId
+                               select u).Single();
+            var animal = (from a in db.Animals
+                          where a.AnimalId == adoption.AnimalId
+                          select a).Single();
+            return updateAdopt;
+
+        }
+
+        public static IQueryable<Adoption> GetPendingAdoptions(bool v)
+        {
+            var requireddata = from g in db.Adoptions
+                               where g.ApprovalStatus == "Pending"
+                               select g;
+            return requireddata;
+        }
         public static Species GetSpecies()
         {
             var requiredanimal = (from i in db.Species
@@ -139,8 +157,7 @@ namespace HumaneSociety
             return requiredanimal;
 
         }
-=======
->>>>>>> b08c84eed94a7e40dffb9900410aacc9264c91de
+
         private static USState GetState(string state)
         {
             var RequiredStates = (from i in db.USStates
@@ -187,10 +204,7 @@ namespace HumaneSociety
 
         }
 
-        public static Species GetSpecies()
-        {
-            throw new NotImplementedException();
-        }
+    
 
 
         public static Employee EmployeeLogin(string userName, string password)
