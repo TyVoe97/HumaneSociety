@@ -18,16 +18,11 @@ namespace HumaneSociety
             return Requireddata;
         }
 
-        public static IQueryable<Adoption> GetUserAdoptionStatus(Client client)
-        {
-            var Requireddata = from x in db.Adoptions
-                               where x.ClientId == client.ClientId && x.ApprovalStatus == "Pending"
-                               select x;
-            return Requireddata;
-        }
+
 
         //database.SubmitChanges();  
-
+        //public static Adoption GetUserAdoptionStatus()Emplee
+    
         public static Animal GetAnimalByID(int iD)
         {
             var Requireddata = (from r in db.Animals
@@ -35,43 +30,10 @@ namespace HumaneSociety
                                 select r).First();
             return Requireddata;
         }
-        public static void Adopt(Animal animal, Client client)
-        {
-            Adoption newAdd = new Adoption();
-            newAdd.Client = client;
-            newAdd.Animal = animal;
-            newAdd.ApprovalStatus = "Pending";
-            newAdd.AdoptionFee = 100;
-            db.Adoptions.InsertOnSubmit(newAdd);
-            db.SubmitChanges();
-        }
-
-        // SearchForAnimalByMultipleTraits
-        //RetrieveClients
-
-        public static IQueryable<USState> GetState(string states)
-        {
-            var RequiredStates = (from i in db.USStates
-                                  where i.Name == states
-                                  select i);
-            return RequiredStates;
-        }
-        // AddNewClientgit 
-        //updateClient
-
-        // get pending aboption
-        //UpdateAddress
-
-        //UpdateLastName
 
         public static Client UpdateClient(string userName, string password)
         {
-
-
-
-
             throw new NotImplementedException();
-
 
         }
 
@@ -132,26 +94,17 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-
-        public static Adoption UpdateAdoption(Adoption adoption)
+        public static Adoption UpdateAdoption(int adoption)
         {
             var updateAdopt = (from u in db.Adoptions
-                               where u.AdoptionId == adoption.AdoptionId
+                               where u.AdoptionId == adoption
                                select u).Single();
-            var animal = (from a in db.Animals
-                          where a.AnimalId == adoption.AnimalId
-                          select a).Single();
             return updateAdopt;
-
         }
 
-
-        public static IQueryable<Adoption> GetPendingAdoptions()
+        public static object GetPendingAdoptions()
         {
-            var requireddata = from g in db.Adoptions
-                               where g.ApprovalStatus == "Pending"
-                               select g;
-            return requireddata;
+            throw new NotImplementedException();
         }
 
         public static object CheckEmployeeUserNameExist(string username)
@@ -159,9 +112,17 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static Room GetRoom(int animalId)
+        public static Room GetRoom(int animalId, string rooms)
         {
-            throw new NotImplementedException();
+            var room =(from r in db.Rooms
+                       where r.AnimalId == animalId
+                       select r).FirstOrDefault();
+
+            return room;
+
+            //int dietPlanId = (from d in db.DietPlans
+            //     where d.Name == dietPlanName
+            //     select d.DietPlanId).FirstOrDefault();
         }
 
         public static object AddUsernameAndPassword(Employee employee)
@@ -169,41 +130,56 @@ namespace HumaneSociety
             throw new NotImplementedException();
 
         }
-        public static Species GetSpecies(string speciesName)
+        private static USState GetState(string state)
         {
-            var requiredanimal = (from i in db.Species
-                                  where i.Name == speciesName
+            var RequiredStates = (from i in db.USStates
+                                  where i.Name == state
                                   select i).Single();
-            return requiredanimal;
-
-
-
-
+            return RequiredStates;
         }
-
-
-
+       public static void Adopt(Animal animal, Client client)
+        {
+            Adoption newAdd = new Adoption();
+            newAdd.Client = client;
+            newAdd.Animal = animal;
+            newAdd.ApprovalStatus = "Pending";
+            newAdd.AdoptionFee = 100;
+            db.Adoptions.InsertOnSubmit(newAdd);
+            db.SubmitChanges();
+            
+        }
+        public static IQueryable<Adoption> GetUserAdoptionStatus(Client client)
+        {
+            var Requireddata = from x in db.Adoptions
+                               where x.ClientId == client.ClientId && x.ApprovalStatus == "Pending"
+                               select x;
+            return Requireddata;
+        }
         public static int GetDietPlan()
         {
             //prompt user for food amount, name, and type of food
-            DietPlan diet = new DietPlan();
-            Console.WriteLine("How much food would you like?");
-            Console.WriteLine("What type of food would you like?");
-            Console.WriteLine("What is the name of the food you want?");
-            db.DietPlans.InsertOnSubmit(diet);
-            db.SubmitChanges();
-            var dietPlan = (from d in db.DietPlans
-                            where d.)
+            //DietPlan diet = new DietPlan();
+            //Console.WriteLine("How much food would you like?");
+            //Console.WriteLine("What type of food would you like?");
+            Console.WriteLine("What is the name of the diet plan??");
+            string dietPlanName = Console.ReadLine();
+            //db.DietPlans.InsertOnSubmit(diet);
+            //db.SubmitChanges();
+            int dietPlanId = (from d in db.DietPlans
+                            where d.Name == dietPlanName
+                            select d.DietPlanId).FirstOrDefault();
+            return dietPlanId;
 
+            // TODO
+            // if dietPlanId is 0, make new diet plan, save to DB, return new id
+            // otherwise, return dietPlanId :)
 
         }
 
-
-
-
-
-
-
+        public static Species GetSpecies()
+        {
+            throw new NotImplementedException();
+        }
 
 
         public static Employee EmployeeLogin(string userName, string password)
@@ -219,7 +195,7 @@ namespace HumaneSociety
         {
             throw new NotImplementedException();
         }
-
+    
     }
 
 }
