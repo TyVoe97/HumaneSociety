@@ -2143,7 +2143,7 @@ namespace HumaneSociety
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Shots")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="db.Shots")]
 	public partial class Shot : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
