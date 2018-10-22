@@ -55,38 +55,47 @@ namespace HumaneSociety
             }
 
         }
-        public static Client UpdateUsername(string username)
-        {
+        public static void UpdateUsername(Client client)
+          {
             var newU = (from n in db.Clients
-                        where n.UserName == username
+                        where n.ClientId == client.ClientId
                         select n).Single();
-            return newU;
+            newU.UserName = client.UserName;
+            db.SubmitChanges();
+
+           
         }
-        public static Client UpdateEmail(string email)
+        public static void  UpdateEmail(Client client)
         {
-            var clientEmails = (from i in db.Clients
-                                where i.Email == email
-                                select i).Single();
-            return clientEmails;
+            var clientEmails = (from n in db.Clients
+                                where n.ClientId == client.ClientId
+                                select n).Single();
+            clientEmails.Email = client.Email;
+            db.SubmitChanges();
+
         }
         public static void UpdateAddress(string addresses)
         {
             throw new NotImplementedException();
 
         }
-        public static Client UpdateFirstName(string firstname)
+        public static  void  UpdateFirstName(Client client)
         {
             var clientFirstName = (from f in db.Clients
-                                   where f.FirstName == firstname
-                                   select f).Single();
-            return clientFirstName;
+                                   where f.ClientId == client.ClientId
+                                   select f).First();
+            clientFirstName.FirstName = client.FirstName;
+            db.SubmitChanges();
+        
         }
-        public static void UpdateLastName(string lastname)
+        public static void UpdateLastName(Client client)
         {
 
             var clientLastName = (from f in db.Clients
-                                  where f.LastName == lastname
-                                  select f).Single();
+                                  where f.ClientId == client.ClientId
+                                  select f).First();
+            clientLastName.FirstName = client.LastName;
+            db.SubmitChanges();
         }
 
         public static IQueryable<Client> RetrieveClients()
@@ -294,9 +303,17 @@ namespace HumaneSociety
 
         }
 
-        internal static void RemoveAnimal(object animal)
+        public static void RemoveAnimal(Animal animal)
         {
-
+            var requiredData =
+                (from x in db.Animals
+                 where x.AnimalId == animal.AnimalId
+                 select x).First();
+            if (requiredData != null)
+            {
+                db.Animals.DeleteOnSubmit(requiredData);
+                db.SubmitChanges();
+            }
         }
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
         {
