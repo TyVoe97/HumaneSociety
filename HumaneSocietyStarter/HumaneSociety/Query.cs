@@ -31,10 +31,32 @@ namespace HumaneSociety
             return Requireddata;
         }
 
-        public static Client UpdateClient(string userName, string password)
+        public static void UpdateClient(Client client)
         {
-            throw new NotImplementedException();
+            var requiredData =
+                 (from x in db.Clients
+                  where x.ClientId == client.ClientId
+                  select x).First();
+            if(client.Income != null)
+            {
+                requiredData.Income = client.Income;
+            }
+            if(client.Password !=null)
+            {
+                requiredData.Password = client.Password;
+            }
+            if(client.NumberOfKids !=null)
+            {
+                requiredData.NumberOfKids = client.NumberOfKids;
+            }
+            if(client.HomeSquareFootage !=null)
+            {
+                requiredData.HomeSquareFootage = client.HomeSquareFootage;
+            }
 
+
+
+           
         }
 
 
@@ -76,9 +98,15 @@ namespace HumaneSociety
                                   select f).Single();
         }
 
-        public static object RetrieveClients(string userName, string email)
+        public static List<Client> RetrieveClients()
         {
-            throw new NotImplementedException();
+            var client = (from g in db.Clients
+                          select g).ToList();
+            return client;    
+
+            
+            
+            // ASK ABOUT
             // still working on a way to make this work, feel free to work on it also
             // var retrievedClients = (from r in db.Clients
             // where r.Email == 
@@ -91,10 +119,15 @@ namespace HumaneSociety
 
         public static object SearchForAnimalByMultipleTraits()
         {
-            throw new NotImplementedException();
+          
+          
         }
 
-        public static void UpdateAdoption(bool adopt, Adoption adoption)
+
+      
+
+        public static Adoption UpdateAdoption(bool adopt,Adoption adoption)
+
         {
             var updateAdopt = (from u in db.Adoptions
                                where u.AdoptionId == adoption.AdoptionId
@@ -110,20 +143,27 @@ namespace HumaneSociety
 
                 animal.AdoptionStatus = "Adopted";
             }
+
             else
             {
                 updateAdopt.ApprovalStatus = "Pending";
 
                 animal.AdoptionStatus = "Pending";
             }
-
+            return updateAdopt;
 
         }
 
-        public static object GetPendingAdoptions()
+    
+
+        public static IQueryable<Adoption> GetPendingAdoptions()
         {
-            throw new NotImplementedException();
+            var requireddata = from g in db.Adoptions
+                               where g.ApprovalStatus == "Pending"
+                               select g;
+            return requireddata;
         }
+            
 
         public static bool CheckEmployeeUserNameExist(string username)
         {
@@ -161,7 +201,11 @@ namespace HumaneSociety
                                select g;
             return requireddata;
         }
+
+
+      
         public static Species GetSpecies(string speciesName)
+
         {
             var requiredanimal = (from i in db.Species
                                   where i.Name == speciesName
@@ -170,11 +214,14 @@ namespace HumaneSociety
 
         }
 
-        private static USState GetState(string state)
+
+
+        private static IQueryable<USState> GetState(string state)
+
         {
             var RequiredStates = (from i in db.USStates
                                   where i.Name == state
-                                  select i).Single();
+                                  select i);
             return RequiredStates;
         }
         public static void Adopt(Animal animal, Client client)
@@ -188,6 +235,19 @@ namespace HumaneSociety
             db.SubmitChanges();
 
         }
+        internal static void AddAnimal(Animal animal)
+        {
+            db.Animals.InsertOnSubmit(animal);
+            db.SubmitChanges();
+
+        }
+
+
+        internal static object GetShots(Animal animal)
+        {
+            throw new NotImplementedException();
+        }
+
         public static IQueryable<Adoption> GetUserAdoptionStatus(Client client)
         {
             var Requireddata = from x in db.Adoptions
@@ -196,31 +256,41 @@ namespace HumaneSociety
             return Requireddata;
         }
 
+
         public static void UpdateShot(string v, Animal animal) 
+
         {
             throw new NotImplementedException();
         }
 
-        public static int GetDietPlan()
+        public static DietPlan GetDietPlan()
         {
-            //prompt user for food amount, name, and type of food
-            //DietPlan diet = new DietPlan();
-            //Console.WriteLine("How much food would you like?");
-            //Console.WriteLine("What type of food would you like?");
-            Console.WriteLine("What is the name of the diet plan??");
-            string dietPlanName = Console.ReadLine();
-            //db.DietPlans.InsertOnSubmit(diet);
-            //db.SubmitChanges();
-            int dietPlanId = (from d in db.DietPlans
+            Console.WriteLine("What is the name of the diet plan?");
+            string dietPlanName = Console.ReadLine();        
+            var dietPlan = (from d in db.DietPlans
                               where d.Name == dietPlanName
-                              select d.DietPlanId).FirstOrDefault();
-            return dietPlanId;
+                            select d).FirstOrDefault();
+            if (dietPlan == default(DietPlan))
+            {
+                DietPlan diet = new DietPlan();
+                Console.WriteLine("What type of food would you like?");
+                string foodType = Console.ReadLine();
+                Console.WriteLine("How much of the food would you like in cups?");
+                int cupsOfFood = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("What would you like to know the new diet plan?");
+                string newDiet = Console.ReadLine();
+                diet.FoodType = foodType;
+                diet.FoodAmountInCups = cupsOfFood;
+                diet.Name = newDiet;
+                db.DietPlans.InsertOnSubmit(diet);
+                db.SubmitChanges();
 
-
-            // TODO
-            // if dietPlanId is 0, make new diet plan, save to DB, return new id
-            // otherwise, return dietPlanId :)
-
+                return dietPlan;
+            }
+            else
+            {
+                return dietPlan;
+            }
         }
 
         internal static void EnterUpdate(Animal animal, Dictionary<int, string> updates)
@@ -239,7 +309,7 @@ namespace HumaneSociety
 
         internal static void RunEmployeeQueries(Employee employee, string v)
         {
-
+   
         }
 
         internal static void RemoveAnimal(object animal)
@@ -247,15 +317,13 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static void AddAnimal(Animal animal)
-        {
-            throw new NotImplementedException();
-        }
 
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
         {
             throw new NotImplementedException();
         }
+
     }
 
 }
+

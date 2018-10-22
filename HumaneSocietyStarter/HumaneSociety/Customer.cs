@@ -158,7 +158,7 @@ namespace HumaneSociety
             UserInterface.DisplayUserOptions("Please enter a username");
             string username = UserInterface.GetUserInput();
             var clients = Query.RetrieveClients();
-            var clientUsernames = from client in clients select client.userName;
+            var clientUsernames = from client in clients select client.UserName;
             if (CheckForForValue(clientUsernames.ToList(), username))
             {
                 Console.Clear();
@@ -177,10 +177,10 @@ namespace HumaneSociety
         }
         public static string GetEmail()
         {
-            var clients = Query.RetrieveClients();
-            var clientEmails = from client in clients select client.email;
             UserInterface.DisplayUserOptions("Please enter your email");
             string email = UserInterface.GetUserInput();
+            var clients = Query.RetrieveClients();
+            var clientEmails = from client in clients select client.Email;
             if (email.Contains("@") && email.Contains("."))
             {
                 if (CheckForForValue(clientEmails.ToList(), email))
@@ -233,7 +233,7 @@ namespace HumaneSociety
             try
             {
                 var clients = Query.RetrieveClients();
-                var clientUsernames = from client in clients select client.userName;
+                var clientUsernames = from client in clients select client.UserName;
                 string username = GetUserName();
                 string email = GetEmail();
                 Console.Clear();
@@ -387,14 +387,14 @@ namespace HumaneSociety
             Console.Clear();
             UserInterface.DisplayUserOptions("How many childern are in your household?");
             client.NumberOfKids = UserInterface.GetIntegerData();
-            Query.updateClient(client);
+            Query.UpdateClient(client);
         }
 
         private void UpdateIncome()
         {
             UserInterface.DisplayUserOptions("What is your household income? (If you would like to omit it enter 0)");
             client.Income = UserInterface.GetIntegerData();
-            Query.updateClient(client);
+            Query.UpdateClient(client);
         }
 
         private void UpdatePassword()
@@ -403,7 +403,7 @@ namespace HumaneSociety
             Console.Clear();
             UserInterface.DisplayUserOptions("Current Password: " + client.Password + " What is your new Password?");
             client.Password = UserInterface.GetUserInput();
-            Query.updateClient(client);
+            Query.UpdateClient(client);
         }
 
         private void UpdateUsername()
