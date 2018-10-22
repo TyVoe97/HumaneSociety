@@ -231,11 +231,24 @@ namespace HumaneSociety
             return Requireddata;
         }
 
-        internal static void UpdateShot(string v, Animal animal)
+        public static void UpdateShot(string shots, Animal animal)
         {
-            var Updateshots = (from i in db.Shots
-                               where i.ShotId == UpdateShot
-                               select i); //halfway done
+            string theShot = "rabies";
+
+            var shot = (from s in db.Shots
+                        where s.Name == theShot
+                        select s).Single();
+
+            AnimalShot animalShot = new AnimalShot();
+
+            animalShot.AnimalId = animal.AnimalId;
+            animalShot.ShotId = shot.ShotId;
+            animalShot.DateReceived = "??"
+
+            //var RequiredUpdate = (from i in db.AnimalShots
+            //                      where i. == Shots
+            //                      select i).Single();
+            return;
         }
         public static DietPlan GetDietPlan()
         {
@@ -283,7 +296,7 @@ namespace HumaneSociety
         {
    
         }
-]
+
         internal static void RemoveAnimal(object animal)
         {
            
