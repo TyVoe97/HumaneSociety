@@ -158,7 +158,7 @@ namespace HumaneSociety
             UserInterface.DisplayUserOptions("Please enter a username");
             string username = UserInterface.GetUserInput();
             var clients = Query.RetrieveClients();
-            var clientUsernames = from client in clients select client.userName;
+            var clientUsernames = from client in clients select client.UserName;
             if (CheckForForValue(clientUsernames.ToList(), username))
             {
                 Console.Clear();
@@ -177,10 +177,10 @@ namespace HumaneSociety
         }
         public static string GetEmail()
         {
-            var clients = Query.RetrieveClients();
-            var clientEmails = from client in clients select client.email;
             UserInterface.DisplayUserOptions("Please enter your email");
             string email = UserInterface.GetUserInput();
+            var clients = Query.RetrieveClients();
+            var clientEmails = from client in clients select client.Email;
             if (email.Contains("@") && email.Contains("."))
             {
                 if (CheckForForValue(clientEmails.ToList(), email))
@@ -233,7 +233,7 @@ namespace HumaneSociety
             try
             {
                 var clients = Query.RetrieveClients();
-                var clientUsernames = from client in clients select client.userName;
+                var clientUsernames = from client in clients select client.UserName;
                 string username = GetUserName();
                 string email = GetEmail();
                 Console.Clear();
