@@ -98,12 +98,12 @@ namespace HumaneSociety
                                   select f).Single();
         }
 
-        public static object RetrieveClients(string userName, string email)
+        public static IQueryable<Client> RetrieveClients()
         {
-            throw new NotImplementedException();
-            // still working on a way to make this work, feel free to work on it also
-            // var retrievedClients = (from r in db.Clients
-            // where r.Email == 
+            var requiredData =
+               from x in db.Clients
+               select x;
+            return requiredData;
         }
 
         public static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
@@ -111,8 +111,9 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        public static object SearchForAnimalByMultipleTraits()
+        public static void SearchForAnimalByMultipleTraits()
         {
+            UserInterface.DisplayUserOptions("Please Enter   ");
           
         }
 
@@ -122,9 +123,7 @@ namespace HumaneSociety
         
 
         public static Adoption UpdateAdoption(bool adopt,Adoption adoption)
-
-
-        {
+           {
             var updateAdopt = (from u in db.Adoptions
                                where u.AdoptionId == adoption.AdoptionId
                                select u).Single();
@@ -172,18 +171,7 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        public static Room GetRoom(int animalId, string rooms)
-        {
-            var room = (from r in db.Rooms
-                       where r.AnimalId == animalId
-                       select r).FirstOrDefault();
-
-            return room;
-
-            //int dietPlanId = (from d in db.DietPlans
-            //     where d.Name == dietPlanName
-            //     select d.DietPlanId).FirstOrDefault();
-        }
+        
 
         public static object AddUsernameAndPassword(Employee employee)
         {
@@ -289,12 +277,43 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static void AddAnimal(Animal animal)
+        public static void AddAnimal(Animal animal)
         {
             db.Animals.InsertOnSubmit(animal);
             db.SubmitChanges();
+            AssignRoom(animal);
             
         }
+        public static void AssignRoom(Animal animal)
+        {
+            Room newRoom = new Room();
+            newRoom.AnimalId = animal.AnimalId;
+            int newNumber = 0;
+            bool searching = false;
+            while (!searching)
+            {
+                newNumber++;
+                var isExisting = db.Rooms.AsEnumerable().Any(row => newNumber == row.RoomNumber);
+                if (!isExisting)
+                {
+                    searching = true;
+                    newRoom.RoomNumber = newNumber;
+                }
+            }
+            db.Rooms.InsertOnSubmit(newRoom);
+           db.SubmitChanges();
+        }
+        public static Room GetRoom(int animalId, string rooms)
+        {
+            var room = (from r in db.Rooms
+                        where r.AnimalId == animalId
+                        select r).FirstOrDefault();
+            
+
+            return room;
+
+
+        } 
 
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
         {
@@ -306,3 +325,4 @@ namespace HumaneSociety
 
 
     
+ 
