@@ -89,7 +89,7 @@ namespace HumaneSociety
                                   select f).Single();
         }
 
-        public static object RetrieveClients(string userName, string email)
+        public static List<Client> RetrieveClients()
         {
             var client = (from g in db.Clients
                           select g).ToList();
@@ -98,7 +98,25 @@ namespace HumaneSociety
         }
         public static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("What is your income?");
+            int income = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("How many kids do you have?");
+            int kids = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("What is the square footage of your house?");
+            int footage = Convert.ToInt32(Console.ReadLine());
+            Client newClient = new Client();
+            newClient.FirstName = firstName;
+            newClient.LastName = lastName;
+            newClient.UserName = username;
+            newClient.Password = password;
+            newClient.Email = email;
+            newClient.AddressId = streetAddress; //ask about int=string
+            newClient.Income = income;
+            newClient.NumberOfKids = kids;
+            newClient.HomeSquareFootage = footage;
+            db.Clients.InsertOnSubmit(newClient);
+            db.SubmitChanges();
+
         }
         public static IQueryable<Animal> SearchForAnimalByMultipleTraits(Animal animal)
         {
@@ -231,7 +249,7 @@ namespace HumaneSociety
             return Requireddata;
         }
 
-        internal static void UpdateShot(string v, Animal animal)
+        public static void UpdateShot(string v, Animal animal)
         {
             var Updateshots = (from i in db.Shots
                                where i.ShotId == UpdateShot
