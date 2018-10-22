@@ -9,7 +9,7 @@ namespace HumaneSociety
     public static class Query
     {
         public static HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         public static Client GetClient(string userName, string password)
         {
             var Requireddata = (from x in db.Clients
@@ -22,7 +22,7 @@ namespace HumaneSociety
 
         //database.SubmitChanges();  
         //public static Adoption GetUserAdoptionStatus()Emplee
-        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         public static Animal GetAnimalByID(int iD)
         {
             var Requireddata = (from r in db.Animals
@@ -30,14 +30,39 @@ namespace HumaneSociety
                                 select r).First();
             return Requireddata;
         }
-        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        public static Client UpdateClient(string userName, string password)
-        {
-            throw new NotImplementedException();
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  
 
+        public static void UpdateClient(Client client)
+
+        {
+            var requiredData =
+                 (from x in db.Clients
+                  where x.ClientId == client.ClientId
+                  select x).First();
+            if(client.Income != null)
+            {
+                requiredData.Income = client.Income;
+            }
+            if(client.Password !=null)
+            {
+                requiredData.Password = client.Password;
+            }
+            if(client.NumberOfKids !=null)
+            {
+                requiredData.NumberOfKids = client.NumberOfKids;
+            }
+            if(client.HomeSquareFootage !=null)
+            {
+                requiredData.HomeSquareFootage = client.HomeSquareFootage;
+            }
+
+
+
+           
         }
 
-        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         public static Client UpdateUsername(string username)
         {
             var newU = (from n in db.Clients
@@ -89,14 +114,22 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        public static object SearchForAnimalByMultipleTraits()
+        public static IQueryable<Animal> SearchForAnimalByMultipleTraits(Animal animal)
         {
-            throw new NotImplementedException();
+          
         }
 
 
+
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+        
+
+
         public static Adoption UpdateAdoption(bool adopt,Adoption adoption)
+
 
         {
             var updateAdopt = (from u in db.Adoptions
@@ -105,7 +138,6 @@ namespace HumaneSociety
             var animal = (from a in db.Animals
                           where a.AnimalId == adoption.AnimalId
                           select a).Single();
-            
 
 
             if (adopt)
@@ -118,13 +150,33 @@ namespace HumaneSociety
             {
                 updateAdopt.ApprovalStatus = "Pending";
 
-                animal.AdoptionStatus = "Pending"; 
+                animal.AdoptionStatus = "Pending";
             }
             return updateAdopt;
 
+
+
         }
 
+
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    
+
+        public static IQueryable<Adoption> GetPendingAdoptions()
+        {
+            var requireddata = from g in db.Adoptions
+                               where g.ApprovalStatus == "Pending"
+                               select g;
+            return requireddata;
+        }
+        
+
+
+
+      
+ 
+
 
         public static object CheckEmployeeUserNameExist(string username)
         {
@@ -150,16 +202,13 @@ namespace HumaneSociety
 
         }
 
+
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        public static IQueryable<Adoption> GetPendingAdoptions()
-        {
-            var requireddata = from g in db.Adoptions
-                               where g.ApprovalStatus == "Pending"
-                               select g;
-            return requireddata;
-        }
+     
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
         public static Species GetSpecies(string speciesName)
+
         {
             var requiredanimal = (from i in db.Species
                           where i.Name == speciesName
@@ -167,8 +216,14 @@ namespace HumaneSociety
             return requiredanimal;
 
         }
+
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+
         private static IQueryable<USState> GetState(string state)
+
         {
             var RequiredStates = (from i in db.USStates
                                   where i.Name == state
@@ -216,6 +271,7 @@ namespace HumaneSociety
         public static int GetDietPlan()
         {
             //prompt user for food amount, name, and type of food
+
             //DietPlan diet = new DietPlan();
             //Console.WriteLine("How much food would you like?");
             //Console.WriteLine("What type of food would you like?");
