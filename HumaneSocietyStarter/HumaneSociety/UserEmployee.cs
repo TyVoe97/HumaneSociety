@@ -209,7 +209,7 @@ namespace HumaneSociety
             RunCheckMenu(animals[0]);
         }
 
-        private IQueryable<Animal> SearchForAnimal(int iD)
+        private IQueryable<Animal> SearchForAnimal(int iD) 
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
             var animals = (from animal in context.Animals where animal.AnimalId == iD select animal);

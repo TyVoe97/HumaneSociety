@@ -29,7 +29,7 @@ namespace HumaneSociety
                                 select r).First();
             return Requireddata;
         }
-  
+
         public static void UpdateClient(Client client)
 
         {
@@ -37,75 +37,115 @@ namespace HumaneSociety
                  (from x in db.Clients
                   where x.ClientId == client.ClientId
                   select x).First();
-            if(client.Income != null)
+            if (client.Income != null)
             {
                 requiredData.Income = client.Income;
             }
-            if(client.Password !=null)
+            if (client.Password != null)
             {
                 requiredData.Password = client.Password;
             }
-            if(client.NumberOfKids !=null)
+            if (client.NumberOfKids != null)
             {
                 requiredData.NumberOfKids = client.NumberOfKids;
             }
-            if(client.HomeSquareFootage !=null)
+            if (client.HomeSquareFootage != null)
             {
                 requiredData.HomeSquareFootage = client.HomeSquareFootage;
             }
+
+        }
+        public static void UpdateUsername(Client client)
+          {
+            var newU = (from n in db.Clients
+                        where n.ClientId == client.ClientId
+                        select n).Single();
+            newU.UserName = client.UserName;
+            db.SubmitChanges();
+
            
         }
-        public static Client UpdateUsername(string username)
+        public static void  UpdateEmail(Client client)
         {
-            var newU = (from n in db.Clients
-                        where n.UserName == username
-                        select n).Single();
-            return newU;
-        }
-        public static Client UpdateEmail(string email)
-        {
-            var clientEmails = (from i in db.Clients
-                                where i.Email == email
-                                select i).Single();
-            return clientEmails;
+            var clientEmails = (from n in db.Clients
+                                where n.ClientId == client.ClientId
+                                select n).Single();
+            clientEmails.Email = client.Email;
+            db.SubmitChanges();
+
         }
         public static void UpdateAddress(string addresses)
         {
             throw new NotImplementedException();
 
         }
-        public static Client UpdateFirstName(string firstname)
+        public static  void  UpdateFirstName(Client client)
         {
             var clientFirstName = (from f in db.Clients
-                                   where f.FirstName == firstname
-                                   select f).Single();
-            return clientFirstName;
+                                   where f.ClientId == client.ClientId
+                                   select f).First();
+            clientFirstName.FirstName = client.FirstName;
+            db.SubmitChanges();
+        
         }
-        public static void UpdateLastName(string lastname)
+        public static void UpdateLastName(Client client)
         {
 
             var clientLastName = (from f in db.Clients
-                                  where f.LastName == lastname
-                                  select f).Single();
+                                  where f.ClientId == client.ClientId
+                                  select f).First();
+            clientLastName.FirstName = client.LastName;
+            db.SubmitChanges();
         }
 
-        public static object RetrieveClients(string userName, string email)
+<<<<<<< HEAD
+        public static List<Client> RetrieveClients()
+=======
+        public static IQueryable<Client> RetrieveClients()
+>>>>>>> 3f7f20f082404b877ae30a2cf60a82777c79e617
         {
-            var client = (from g in db.Clients
-                          select g).ToList();
-            return client;    
 
+            var requiredData =
+               from x in db.Clients
+               select x;
+            return requiredData;
         }
+
+
+
         public static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("What is your income?");
+            int income = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("How many kids do you have?");
+            int kids = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("What is the square footage of your house?");
+            int footage = Convert.ToInt32(Console.ReadLine());
+            Client newClient = new Client();
+            newClient.FirstName = firstName;
+            newClient.LastName = lastName;
+            newClient.UserName = username;
+            newClient.Password = password;
+            newClient.Email = email;
+            newClient.AddressId = streetAddress; //ask about int=string
+            newClient.Income = income;
+            newClient.NumberOfKids = kids;
+            newClient.HomeSquareFootage = footage;
+            db.Clients.InsertOnSubmit(newClient);
+            db.SubmitChanges();
+
         }
+
+
         public static IQueryable<Animal> SearchForAnimalByMultipleTraits(Animal animal)
+
         {
-          
-          
+            UserInterface.DisplayUserOptions("Please Enter   ");
+
+
         }
-        public static Adoption UpdateAdoption(bool adopt,Adoption adoption)
+        public static Adoption UpdateAdoption(bool adopt, Adoption adoption)
+
 
         {
             var updateAdopt = (from u in db.Adoptions
@@ -140,16 +180,17 @@ namespace HumaneSociety
                                select g;
             return requireddata;
         }
-           
+
         public static object CheckEmployeeUserNameExist(string username)
         {
             var alreadyExists = (from a in db.Employees
                                  where a.UserName == username
                                  select a).Any();
-            return alreadyExists;  
-       
+            return alreadyExists;
+
 
         }
+
 
         public static Room GetRoom(int animalId, string rooms)
         {
@@ -218,9 +259,9 @@ namespace HumaneSociety
 
         {
             var Reqiredshots = (from i in db.AnimalShots
-                               where i.AnimalId == animal.AnimalId
-                               select i);
-           return Reqiredshots;
+                                where i.AnimalId == animal.AnimalId
+                                select i);
+            return Reqiredshots;
         }
 
         public static IQueryable<Adoption> GetUserAdoptionStatus(Client client)
@@ -231,7 +272,11 @@ namespace HumaneSociety
             return Requireddata;
         }
 
+<<<<<<< HEAD
         public static void UpdateShot(string shots, Animal animal)
+=======
+        public static void UpdateShot(string v, Animal animal)
+>>>>>>> e9225885335811d3325f5af0902ea010eb4948d8
         {
             string theShot = "rabies";
 
@@ -253,9 +298,9 @@ namespace HumaneSociety
         public static DietPlan GetDietPlan()
         {
             Console.WriteLine("What is the name of the diet plan?");
-            string dietPlanName = Console.ReadLine();        
+            string dietPlanName = Console.ReadLine();
             var dietPlan = (from d in db.DietPlans
-                              where d.Name == dietPlanName
+                            where d.Name == dietPlanName
                             select d).FirstOrDefault();
             if (dietPlan == default(DietPlan))
             {
@@ -283,7 +328,7 @@ namespace HumaneSociety
         {
             throw new NotImplementedException();
         }
-       
+
         public static Employee EmployeeLogin(string userName, string password)
         {
             var user = (from u in db.Employees
@@ -294,22 +339,67 @@ namespace HumaneSociety
         }
         internal static void RunEmployeeQueries(Employee employee, string v)
         {
-   
+
         }
 
+<<<<<<< HEAD
         internal static void RemoveAnimal(object animal)
+=======
+        public static void RemoveAnimal(Animal animal)
+>>>>>>> e9225885335811d3325f5af0902ea010eb4948d8
         {
-           
-        } 
+            var requiredData =
+                (from x in db.Animals
+                 where x.AnimalId == animal.AnimalId
+                 select x).First();
+            if (requiredData != null)
+            {
+                db.Animals.DeleteOnSubmit(requiredData);
+                db.SubmitChanges();
+            }
+        }
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
         {
             throw new NotImplementedException();
         }
+
+       
+        public static void AssignRoom(Animal animal)
+        {
+            Room newRoom = new Room();
+            newRoom.AnimalId = animal.AnimalId;
+            int newNumber = 0;
+            bool searching = false;
+            while (!searching)
+            {
+                newNumber++;
+                var isExisting = db.Rooms.AsEnumerable().Any(row => newNumber == row.RoomNumber);
+                if (!isExisting)
+                {
+                    searching = true;
+                    newRoom.RoomNumber = newNumber;
+                }
+            }
+            db.Rooms.InsertOnSubmit(newRoom);
+            db.SubmitChanges();
+        }
+        public static Room GetRoom(int animalId, string rooms)
+        {
+            var room = (from r in db.Rooms
+                        where r.AnimalId == animalId
+                        select r).FirstOrDefault();
+
+
+            return room;
+
+
+        }
+
         public static void ToList(Animal animal)
         {
 
         }
-    }
 
+    }
 }
 
